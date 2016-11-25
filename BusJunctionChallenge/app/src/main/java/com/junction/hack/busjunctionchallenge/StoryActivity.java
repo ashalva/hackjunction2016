@@ -52,16 +52,20 @@ public class StoryActivity extends AppCompatActivity {
         float endX = _endPoint.getX();
         float endY = _endPoint.getY();
 
+        _coordinateList.add(new Coordinate(startX,startY));
+
         for (int i = 0; i < 15 ; i++ ){
 
             View newPoint = new View(this);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(pointSize,this), Helpers.convertDpToPixel(pointSize,this));
-            newPoint.setX(100);
+            startY += 20;
+            startX += 20;
+            newPoint.setX(startX);
             newPoint.setLayoutParams(params);
-            newPoint.setY(100);
+            newPoint.setY(startY);
             newPoint.setBackground(ContextCompat.getDrawable(this,R.drawable.route_point_background));
 
-            _coordinateList.add(new Coordinate(1,1));
+            _coordinateList.add(new Coordinate(startX,startY));
             view.addView(newPoint);
         }
 
