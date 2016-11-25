@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,20 +14,27 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.junction.hack.busjunctionchallenge.Helpers.Coordinate;
 import com.junction.hack.busjunctionchallenge.Helpers.Helpers;
+import com.junction.hack.busjunctionchallenge.Helpers.MainPointView;
+import com.junction.hack.busjunctionchallenge.Helpers.PointAnimationListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class StoryActivity extends AppCompatActivity {
 
     private View _startPoint;
     private View _endPoint;
     private List<Coordinate> _coordinateList;
+    private boolean _viewWasGenerated;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +49,16 @@ public class StoryActivity extends AppCompatActivity {
         routeInnerLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                createRoute(routeInnerLayout);
+                if (!_viewWasGenerated) {
+                    createRoute(routeInnerLayout);
+                    startPointAnimation(routeInnerLayout);
+                    _viewWasGenerated = true;
+                }
             }
         });
     }
 
+    private int _index = 0;
     private void createRoute (RelativeLayout view) {
         double pointSize = 10.0;
         float startX = _startPoint.getX();
@@ -54,7 +68,7 @@ public class StoryActivity extends AppCompatActivity {
 
         _coordinateList.add(new Coordinate(startX,startY));
 
-        int pointCount = 10;
+        int pointCount = 20;
         float nextX = (endX - startX) / pointCount;
         float differenceY = (endY - startY) / (pointCount / 2f );
 
@@ -78,9 +92,63 @@ public class StoryActivity extends AppCompatActivity {
             _coordinateList.add(new Coordinate(startX,startY));
             view.addView(newPoint);
         }
+
         _coordinateList.add(new Coordinate(endX,endY));
 
     }
 
+    private void startPointAnimation(RelativeLayout view){
+        float pointSize = 15f;
+        final View mainPoint = new View(this);
+        RelativeLayout.LayoutParams mainPointParams = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(pointSize,this), Helpers.convertDpToPixel(pointSize,this));
+        mainPoint.setLayoutParams(mainPointParams);
+        mainPoint.setBackgroundColor(Color.RED);
+        mainPoint.setX(_startPoint.getX());
+        mainPoint.setY(_startPoint.getY());
 
+        view.addView(mainPoint);
+
+        final Timer myTimer = new Timer();
+        try {
+            myTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (_index < _coordinateList.size()) {
+                                    float movedY = 0;
+                                    if (_index % 2 == 0)
+                                        movedY = _coordinateList.get(_index).get_y() - mainPoint.getY();
+                                    else
+                                        movedY =  mainPoint.getY() - _coordinateList.get(_index).get_y();
+                                    TranslateAnimation anim = new TranslateAnimation(0,
+                                            _coordinateList.get(_index).get_x() - mainPoint.getX(),
+                                            0,
+                                            _coordinateList.get(_index).get_y() - mainPoint.getY());
+                                    anim.setDuration(2000);
+                                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                        public void run() {
+                                            if (_index < _coordinateList.size()) {
+                                                mainPoint.setX(_coordinateList.get(_index).get_x());
+                                                mainPoint.setY(_coordinateList.get(_index).get_y());
+                                                _index++;
+                                            }
+                                        }
+                                    }, anim.getDuration());
+                                    mainPoint.startAnimation(anim);
+                                } else {
+                                    myTimer.cancel();
+                                }
+                            }
+                        });
+
+                    } catch (Exception ex) {
+                    }
+                }
+            }, 0, 2000);
+        } catch (Exception ex) {
+        }
+    }
 }
