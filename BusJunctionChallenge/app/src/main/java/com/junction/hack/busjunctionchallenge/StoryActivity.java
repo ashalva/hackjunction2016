@@ -54,12 +54,22 @@ public class StoryActivity extends AppCompatActivity {
 
         _coordinateList.add(new Coordinate(startX,startY));
 
-        for (int i = 0; i < 15 ; i++ ){
+        int pointCount = 10;
+        float nextX = (endX - startX) / pointCount;
+        float differenceY = (endY - startY) / (pointCount / 2f );
+
+        for (int i = 0; i < pointCount ; i++ ){
 
             View newPoint = new View(this);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(pointSize,this), Helpers.convertDpToPixel(pointSize,this));
-            startY += 20;
-            startX += 20;
+            if (i % 2 == 0)
+                if (i == 0)
+                    startY += differenceY;
+                else
+                    startY += differenceY * 2;
+            else
+                startY -= differenceY ;
+            startX += nextX;
             newPoint.setX(startX);
             newPoint.setLayoutParams(params);
             newPoint.setY(startY);
@@ -68,6 +78,7 @@ public class StoryActivity extends AppCompatActivity {
             _coordinateList.add(new Coordinate(startX,startY));
             view.addView(newPoint);
         }
+        _coordinateList.add(new Coordinate(endX,endY));
 
     }
 
