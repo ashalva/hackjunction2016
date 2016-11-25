@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BusJunctionChallenge</string>
+    <string name="rout_info_title">Title</string>
+    <string name="route_info_description">Description</string>
 </resources>
