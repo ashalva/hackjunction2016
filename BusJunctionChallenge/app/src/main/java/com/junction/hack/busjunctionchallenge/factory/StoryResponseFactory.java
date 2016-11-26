@@ -34,19 +34,6 @@ public class StoryResponseFactory {
         this.stories.add(
                 new Story(R.drawable.donald_trump, "Donald Trump", "Donald John Trump is an American businessman and the President-elect of the United States. In June 2015, Trump announced his candidacy for president as a Republican and quickly emerged as the front-runner for his party's nomination.")
         );
-        this.stories.add(
-                new Story(R.drawable.bill_clinton, "Bill Clinton", "William Jefferson \"Bill\" Clinton (born William Jefferson Blythe III; August 19, 1946) is an American politician who served as the 42nd President of the United States from 1993 to 2001.")
-        );
-        this.stories.add(
-                new Story(R.drawable.george_w_bush, "George W. Bush", "George Walker Bush (born July 6, 1946) is an American politician who was the 43rd President of the United States from 2001 to 2009.")
-        );
-        this.stories.add(
-                new Story(R.drawable.barack_obama, "Barack Obama", "Barack Hussein Obama II born August 4, 1961) is an American politician who is the 44th and current President of the United States.")
-        );
-        this.stories.add(
-                new Story(R.drawable.donald_trump, "Donald Trump", "Donald John Trump is an American businessman and the President-elect of the United States. In June 2015, Trump announced his candidacy for president as a Republican and quickly emerged as the front-runner for his party's nomination.")
-        );
-
     }
 
     public int getMinutes() {

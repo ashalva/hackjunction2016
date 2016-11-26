@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class StoryActivity extends AppCompatActivity implements Animation.AnimationListener {
 
@@ -47,7 +50,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private boolean _viewWasGenerated;
     private int _index = 0;
 
-    double pointSize = 15.0;
+    double pointSize = 22.0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,10 +83,35 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
                 if (!_viewWasGenerated) {
                     createRoute(routeInnerLayout);
                     startPointAnimation(routeInnerLayout);
+                    startCountDown();
                     _viewWasGenerated = true;
                 }
             }
         });
+    }
+
+    int secondCount = 0;
+    int minuteCount = 0;
+    private void startCountDown() {
+        final TextView countDown = (TextView)findViewById(R.id.countdown);
+        minuteCount = storyViewModel.getDuration();
+        countDown.setText(String.format("00:00",minuteCount,secondCount));
+        Timer T=new Timer();
+        T.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        secondCount++;
+
+                    }
+                });
+            }
+        }, 1000, 1000);
+
     }
     private void createRoute(RelativeLayout view) {
 

@@ -21,8 +21,8 @@ public class DrawView extends View {
         _endX = endX;
         _endY = endY;
 
-        paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(5);
+        paint.setColor(Color.rgb(244,67,54));
+        paint.setStrokeWidth(8);
     }
 
     @Override
