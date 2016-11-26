@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.felipecsl.gifimageview.library.GifImageView;
 import com.junction.hack.busjunctionchallenge.Helpers.Coordinate;
+import com.junction.hack.busjunctionchallenge.Helpers.DrawView;
 import com.junction.hack.busjunctionchallenge.Helpers.Helpers;
 import com.junction.hack.busjunctionchallenge.models.Story;
 import com.junction.hack.busjunctionchallenge.viewmodels.StoryViewModel;
@@ -46,6 +47,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private boolean _viewWasGenerated;
     private int _index = 0;
 
+    double pointSize = 15.0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,13 +85,12 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
             }
         });
     }
-
     private void createRoute(RelativeLayout view) {
-        double pointSize = 10.0;
-        float startX = _startPoint.getX();
-        float startY = _startPoint.getY();
-        float endX = _endPoint.getX();
-        float endY = _endPoint.getY();
+
+        float startX = _startPoint.getX() + _startPoint.getWidth() / 2;
+        float startY = _startPoint.getY() + _startPoint.getHeight() / 2;
+        float endX = _endPoint.getX() + _endPoint.getWidth() / 2;
+        float endY = _endPoint.getY() + _endPoint.getHeight() / 2;
 
         int pointCount = 20;
         pointCount = this.storyViewModel.getStorySize();
@@ -115,8 +116,47 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
             _coordinateList.add(new Coordinate(startX, startY));
             view.addView(newPoint);
         }
+        addLines(view);
+        //_coordinateList.add(new Coordinate(_endPoint.getX(),_endPoint.getY()));
+    }
+
+    private void addLines(RelativeLayout view) {
+        DrawView startLine = new DrawView(this,
+                (int)(_startPoint.getX() + pointSize / 2),
+                (int)(_startPoint.getY() + pointSize / 2),
+                (int)(_coordinateList.get(0).get_x() + pointSize / 2),
+                (int)(_coordinateList.get(0).get_y() + pointSize));
+        view.addView(startLine);
+
+        int endX = 0;
+        int endY = 0;
+        int startX = (int)(_coordinateList.get(0).get_x() + pointSize / 2);
+        int startY = (int)(_coordinateList.get(0).get_y() + pointSize);
+
+        for (int i = 0; i < _coordinateList.size() - 2 ; i++) {
+            endX = (int) (_coordinateList.get(i + 1).get_x() + pointSize);
+            endY = (int)(_coordinateList.get(i+1).get_y() + pointSize /2);
+
+            DrawView drawView = new DrawView(this,
+                    startX,
+                    startY,
+                    endX,
+                    endY);
+            view.addView(drawView);
+
+            startX = endX;
+            startY = endY;
+        }
+
+        DrawView endLine = new DrawView(this,
+                (int)(_coordinateList.get(_coordinateList.size() - 2).get_x() + pointSize / 2),
+                (int)(_coordinateList.get(_coordinateList.size() - 2).get_y() + pointSize),
+                (int)(_endPoint.getX() + pointSize / 2),
+                (int)(_endPoint.getY() + pointSize / 2));
+        view.addView(endLine);
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -124,6 +164,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         if (_mainPoint != null)
             _mainPoint.startAnimation();
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -131,7 +172,6 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     }
     private void startPointAnimation(RelativeLayout view) {
         _activity = this;
-        float pointSize = 15f;
 
         RelativeLayout.LayoutParams mainPointParams = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(pointSize, this), Helpers.convertDpToPixel(pointSize, this));
         _mainPoint.setLayoutParams(mainPointParams);
@@ -184,6 +224,10 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
                     difY = _coordinateList.get(_index).get_y() -  _mainPoint.getY();
                 else
                     difY = -( _mainPoint.getY() - _coordinateList.get(_index).get_y());
+
+                if (_index == _coordinateList.size() - 1) {
+                    difY = _endPoint.getY() -  _mainPoint.getY();
+                }
                 _anim = new TranslateAnimation(0,
                         _coordinateList.get(_index).get_x() - _mainPoint.getX(),
                         0,
