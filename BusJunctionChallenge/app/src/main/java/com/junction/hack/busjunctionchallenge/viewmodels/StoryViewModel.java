@@ -43,7 +43,7 @@ public class StoryViewModel {
     }
 
     public int getDuration() {
-        return (this.storyResponse.getMinutes() * 60 * 60 / this.getStorySize());
+        return (this.storyResponse.getMinutes() * 60 * 1000 / this.getStorySize());
     }
 
 }
