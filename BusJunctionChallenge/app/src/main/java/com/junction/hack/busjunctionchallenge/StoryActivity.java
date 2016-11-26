@@ -8,10 +8,16 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.junction.hack.busjunctionchallenge.Helpers.Coordinate;
 import com.junction.hack.busjunctionchallenge.Helpers.Helpers;
+import com.junction.hack.busjunctionchallenge.Helpers.Story;
+import com.junction.hack.busjunctionchallenge.factory.StoryFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +29,33 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private List<Coordinate> _coordinateList;
     private boolean _viewWasGenerated;
 
+    ImageView image;
+    TextView titleTextView;
+    TextView descriptionTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
+
+        image = (ImageView) findViewById(R.id.story_display_image);
+        titleTextView = (TextView) findViewById(R.id.title_textview);
+        descriptionTextView = (TextView) findViewById(R.id.description_textview);
+
+
+        //        INIT factory
+        final StoryFactory storyFactory = new StoryFactory();
+        setNextStory(image, titleTextView, descriptionTextView, storyFactory);
+
+
+        Button nextStory = (Button) findViewById(R.id.next_story_button);
+        nextStory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNextStory(image, titleTextView, descriptionTextView, storyFactory);
+            }
+        });
+
 
         _coordinateList = new ArrayList<Coordinate>();
 
@@ -157,5 +186,18 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     @Override
     public void onAnimationRepeat(Animation animation) {
 
+    }
+
+    private void setNextStory(ImageView image, TextView titleTextView, TextView descriptionTextView, StoryFactory storyFactory) {
+        Story story = storyFactory.nextStory();
+        if (story != null) {
+            titleTextView.setText(story.getTitle());
+            descriptionTextView.setText(story.getDescription());
+            image.setImageResource(story.getImage());
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "No more Stories" , Toast.LENGTH_LONG)
+                    .show();
+        }
     }
 }
