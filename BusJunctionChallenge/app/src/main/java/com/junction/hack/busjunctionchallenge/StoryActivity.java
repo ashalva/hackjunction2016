@@ -92,8 +92,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         float endX = _endPoint.getX() + _endPoint.getWidth() / 2;
         float endY = _endPoint.getY() + _endPoint.getHeight() / 2;
 
-        int pointCount = 20;
-        pointCount = this.storyViewModel.getStorySize();
+        int pointCount = this.storyViewModel.getStorySize();
         float nextX = (endX - startX) / pointCount;
         float differenceY = (endY - startY) / (pointCount / 2f);
 
@@ -114,10 +113,10 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
             newPoint.setBackground(ContextCompat.getDrawable(this, R.drawable.route_point_background));
 
             _coordinateList.add(new Coordinate(startX, startY));
-            view.addView(newPoint);
+            if (i < pointCount - 1)
+                view.addView(newPoint);
         }
         addLines(view);
-        //_coordinateList.add(new Coordinate(_endPoint.getX(),_endPoint.getY()));
     }
 
     private void addLines(RelativeLayout view) {
