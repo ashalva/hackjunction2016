@@ -5,13 +5,18 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.junction.hack.busjunctionchallenge.adapters.BusRouteAdapter;
+import com.junction.hack.busjunctionchallenge.models.BusRoute;
 import com.junction.hack.busjunctionchallenge.viewmodels.MainViewModel;
 import com.junction.hack.busjunctionchallenge.viewmodels.StoryViewModel;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,10 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         final MainViewModel mainViewModel = new MainViewModel();
 
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, mainViewModel.getBusNumbers());
-
+        BusRouteAdapter adapter = new BusRouteAdapter(this, mainViewModel.getBusNumbers());;
 
         // Assign adapter to ListView
         routeNumbersListView.setAdapter(adapter);
@@ -45,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 int itemPosition     = position;
 
                 // ListView Clicked item value
-                String  routeNumber    = (String) routeNumbersListView.getItemAtPosition(position);
+                BusRoute  busRoute    = (BusRoute) routeNumbersListView.getItemAtPosition(position);
+                String routeNumber = busRoute.getBusNumber();
 
                 // Show Alert, Start activity later
                 Toast.makeText(getApplicationContext(),

@@ -12,7 +12,7 @@ public class ServiceLocalImpl implements Service {
 
         BusNumberResponse busNumberResponse = new BusNumberResponse();
         busNumberResponse.setBusId(bf.getBusId());
-        busNumberResponse.setBusNumbers(bf.getBusNumbers());
+        busNumberResponse.setBusRoutes(bf.getBusRoutes());
 
         return busNumberResponse;
     }
