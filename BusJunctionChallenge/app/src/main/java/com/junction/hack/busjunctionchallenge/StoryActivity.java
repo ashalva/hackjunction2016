@@ -17,8 +17,9 @@ import android.widget.Toast;
 
 import com.junction.hack.busjunctionchallenge.Helpers.Coordinate;
 import com.junction.hack.busjunctionchallenge.Helpers.Helpers;
-import com.junction.hack.busjunctionchallenge.Helpers.Story;
+import com.junction.hack.busjunctionchallenge.models.Story;
 import com.junction.hack.busjunctionchallenge.factory.StoryFactory;
+import com.junction.hack.busjunctionchallenge.viewmodels.StoryViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,10 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private TranslateAnimation _anim;
     private List<Coordinate> _coordinateList;
 
+    private ImageView _image;
+    private TextView _titleTextView;
+    private TextView _descriptionTextView;
+    private StoryViewModel storyViewModel;
     private boolean _viewWasGenerated;
     private int _index = 0;
 
@@ -41,21 +46,19 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
 
-        final ImageView image = (ImageView) findViewById(R.id.story_display_image);
-        final TextView titleTextView = (TextView) findViewById(R.id.title_textview);
-        final TextView descriptionTextView = (TextView) findViewById(R.id.description_textview);
+        _image = (ImageView) findViewById(R.id.story_display_image);
+        _titleTextView = (TextView) findViewById(R.id.title_textview);
+        _descriptionTextView = (TextView) findViewById(R.id.description_textview);
 
-
-        //        INIT factory
-        final StoryFactory storyFactory = new StoryFactory();
-        setNextStory(image, titleTextView, descriptionTextView, storyFactory);
+        storyViewModel = new StoryViewModel();
+        setNextStory(_image, _titleTextView, _descriptionTextView, storyViewModel);
 
 
         Button nextStory = (Button) findViewById(R.id.next_story_button);
         nextStory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setNextStory(image, titleTextView, descriptionTextView, storyFactory);
+                setNextStory(_image, _titleTextView, _descriptionTextView, storyViewModel);
             }
         });
 
@@ -85,6 +88,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         float endY = _endPoint.getY();
 
         int pointCount = 20;
+        pointCount = this.storyViewModel.getStorySize();
         float nextX = (endX - startX) / pointCount;
         float differenceY = (endY - startY) / (pointCount / 2f);
 
@@ -132,7 +136,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
 
                     _anim.setAnimationListener(_activity);
                     _anim.setFillAfter(true);
-                    _anim.setDuration(500);
+                    _anim.setDuration(storyViewModel.getDuration());
                     _mainPoint.startAnimation(_anim);
                 }
             });
@@ -152,7 +156,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
             _mainPoint.setY(_coordinateList.get(_index).get_y());
             _index++;
             if (_anim.hasEnded() && _index < _coordinateList.size()) {
-                float difY = 0;
+                float difY;
                 if ( _coordinateList.get(_index).get_y() >  _mainPoint.getY())
                     difY = _coordinateList.get(_index).get_y() -  _mainPoint.getY();
                 else
@@ -164,8 +168,9 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
 
                 _anim.setAnimationListener(_activity);
                 _anim.setFillAfter(true);
-                _anim.setDuration(500);
+                _anim.setDuration(storyViewModel.getDuration());
                 _mainPoint.startAnimation(_anim);
+                setNextStory(_image, _titleTextView, _descriptionTextView, storyViewModel);
             }
         }
     }
@@ -175,8 +180,8 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
 
     }
 
-    private void setNextStory(ImageView image, TextView titleTextView, TextView descriptionTextView, StoryFactory storyFactory) {
-        Story story = storyFactory.nextStory();
+    private void setNextStory(ImageView image, TextView titleTextView, TextView descriptionTextView, StoryViewModel storyViewModel) {
+        Story story = storyViewModel.nextStory();
         if (story != null) {
             titleTextView.setText(story.getTitle());
             descriptionTextView.setText(story.getDescription());

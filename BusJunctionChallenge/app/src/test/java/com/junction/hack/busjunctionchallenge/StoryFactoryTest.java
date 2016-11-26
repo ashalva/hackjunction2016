@@ -1,6 +1,6 @@
 package com.junction.hack.busjunctionchallenge;
 
-import com.junction.hack.busjunctionchallenge.Helpers.Story;
+import com.junction.hack.busjunctionchallenge.models.Story;
 import com.junction.hack.busjunctionchallenge.factory.StoryFactory;
 
 import org.junit.Test;
