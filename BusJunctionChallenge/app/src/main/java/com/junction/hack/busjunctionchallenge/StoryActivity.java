@@ -32,7 +32,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private StoryActivity _activity;
     private View _startPoint;
     private View _endPoint;
-    private View _mainPoint;
+    private ImageView _busRoute;
 
     private TranslateAnimation _anim;
     private List<Coordinate> _coordinateList;
@@ -44,7 +44,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private boolean _viewWasGenerated;
     private int _index = 0;
 
-    double _pointSize = 22.0;
+    double _pointSize = 17.0;
     private RecyclerView rv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private void startCountDown() {
         final TextView countDown = (TextView)findViewById(R.id.countdown);
         minuteCount = storyViewModel.getDuration();
-        countDown.setText(String.format("00:00",minuteCount,secondCount));
+        countDown.setText(String.format("COMING IN 9:20",minuteCount,secondCount));
         Timer T=new Timer();
         T.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -181,28 +181,20 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private void startPointAnimation(RelativeLayout view) {
         _activity = this;
 
-        RelativeLayout.LayoutParams mainPointParams = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(_pointSize, this), Helpers.convertDpToPixel(_pointSize, this));
-        _mainPoint = new View(this);
-        _mainPoint.setLayoutParams(mainPointParams);
-        _mainPoint.setBackgroundColor(Color.RED);
-        _mainPoint.setX(_startPoint.getX());
-        _mainPoint.setY(_startPoint.getY());
-
-
-        view.addView(_mainPoint);
+        _busRoute = (ImageView)findViewById(R.id.bus_imageview);
         try {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     _anim = new TranslateAnimation(0,
-                            _coordinateList.get(_index).get_x() - _mainPoint.getX(),
+                            _coordinateList.get(_index).get_x() - _busRoute.getX(),
                             0,
-                            _coordinateList.get(_index).get_y() - _mainPoint.getY());
+                            0);
 
                     _anim.setAnimationListener(_activity);
                     _anim.setFillAfter(true);
                     _anim.setDuration(storyViewModel.getDuration());
-                    _mainPoint.startAnimation(_anim);
+                    _busRoute.startAnimation(_anim);
                 }
             });
         } catch (Exception ex) {
@@ -217,28 +209,19 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     @Override
     public void onAnimationEnd(Animation animation) {
         if (_index < _coordinateList.size() - 1) {
-            _mainPoint.setX(_coordinateList.get(_index).get_x());
-            _mainPoint.setY(_coordinateList.get(_index).get_y());
+            _busRoute.setX(_coordinateList.get(_index).get_x());
             _index++;
             if (_anim.hasEnded() && _index < _coordinateList.size()) {
-                float difY;
-                if ( _coordinateList.get(_index).get_y() >  _mainPoint.getY())
-                    difY = _coordinateList.get(_index).get_y() -  _mainPoint.getY();
-                else
-                    difY = -( _mainPoint.getY() - _coordinateList.get(_index).get_y());
 
-                if (_index == _coordinateList.size() - 1) {
-                    difY = _endPoint.getY() -  _mainPoint.getY();
-                }
                 _anim = new TranslateAnimation(0,
-                        _coordinateList.get(_index).get_x() - _mainPoint.getX(),
+                        _coordinateList.get(_index).get_x() - _busRoute.getX(),
                         0,
-                        difY);
+                        0);
 
                 _anim.setAnimationListener(_activity);
                 _anim.setFillAfter(true);
                 _anim.setDuration(storyViewModel.getDuration());
-                _mainPoint.startAnimation(_anim);
+                _busRoute.startAnimation(_anim);
                 setNextStory();
             }
         }

@@ -14,7 +14,7 @@
         android:paddingLeft="35dp"
         android:paddingRight = "35dp"
         android:paddingBottom="10dp"
-        android:layout_weight="25"
+        android:layout_weight="20"
         android:weightSum="100"
         android:background="@color/hsl_blue">
         <LinearLayout
@@ -104,38 +104,51 @@
         android:layout_height="match_parent"
         android:id="@+id/route_layout"
         android:orientation="vertical"
-        android:layout_weight="75"
+        android:layout_weight="80"
         android:background="#212121">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id = "@+id/route_inner_layout" >
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
                     android:layout_height="wrap_content"
                     android:id = "@+id/countdown"
-                    android:text = "00:00"
+                    android:text = "COMING ON 12:20"
                     android:textColor="#ffffff"
                     android:textSize = "16dp"
                     android:layout_alignParentRight="true"
                     android:padding="15dp"
+                    android:fontFamily="font_family_light"
+                    android:textStyle ="bold"
                     />
             <View
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:id = "@+id/starter_point"
                 android:background="@drawable/point_background"
-                android:layout_margin="15dp"/>
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="15dp"/>
             <View
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:id = "@+id/end_point"
                 android:background="@drawable/point_background"
-                android:layout_margin="15dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginRight="15dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"/>
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:id = "@+id/bus_imageview"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bus_route"/>
         </RelativeLayout>
-
     </LinearLayout>
 
 </LinearLayout>
