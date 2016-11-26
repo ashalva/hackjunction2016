@@ -1,6 +1,9 @@
 package com.junction.hack.busjunctionchallenge;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,12 +18,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.felipecsl.gifimageview.library.GifImageView;
 import com.junction.hack.busjunctionchallenge.Helpers.Coordinate;
 import com.junction.hack.busjunctionchallenge.Helpers.Helpers;
 import com.junction.hack.busjunctionchallenge.models.Story;
 import com.junction.hack.busjunctionchallenge.factory.StoryFactory;
 import com.junction.hack.busjunctionchallenge.viewmodels.StoryViewModel;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +35,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private StoryActivity _activity;
     private View _startPoint;
     private View _endPoint;
-    private View _mainPoint;
+    private GifImageView _mainPoint;
 
     private TranslateAnimation _anim;
     private List<Coordinate> _coordinateList;
@@ -112,17 +118,36 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         }
 
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        _mainPoint = new GifImageView(this);
+        if (_mainPoint != null)
+            _mainPoint.startAnimation();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        _mainPoint.stopAnimation();
+    }
     private void startPointAnimation(RelativeLayout view) {
+        _activity = this;
         float pointSize = 15f;
+
         RelativeLayout.LayoutParams mainPointParams = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(pointSize, this), Helpers.convertDpToPixel(pointSize, this));
-        _mainPoint = new View(this);
         _mainPoint.setLayoutParams(mainPointParams);
+//        Drawable d = ContextCompat.getDrawable(_activity, R.drawable.giphy); // the drawable (Captain Obvious, to the rescue!!!)
+//        Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+//        byte[] bitmapdata = stream.toByteArray();
+//        _mainPoint.setBytes(bitmapdata);
         _mainPoint.setBackgroundColor(Color.RED);
         _mainPoint.setX(_startPoint.getX());
         _mainPoint.setY(_startPoint.getY());
+        _mainPoint.startAnimation();
 
-        _activity = this;
+
         view.addView(_mainPoint);
         try {
             runOnUiThread(new Runnable() {
