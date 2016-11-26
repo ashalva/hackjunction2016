@@ -17,7 +17,7 @@ public class ServiceLocalImpl implements Service {
         return busNumberResponse;
     }
 
-    public StoryResponse getStory(int busNumber, int stationId) {
+    public StoryResponse getStory(int busNumber, String routeNumber) {
 
         StoryResponseFactory sf = new StoryResponseFactory();
         StoryResponse storyResponse = new StoryResponse();

@@ -6,14 +6,10 @@ import com.junction.hack.busjunctionchallenge.service.ServiceLocalImpl;
 
 import java.util.List;
 
-/**
- * Created by dn on 11/26/16.
- */
-
 public class MainViewModel {
 
-    List<String> busNumbers;
-    int busId;
+    private List<String> busNumbers;
+    private int busId;
 
     public MainViewModel() {
         Service service = new ServiceLocalImpl();
@@ -25,5 +21,9 @@ public class MainViewModel {
 
     public List<String> getBusNumbers() {
         return busNumbers;
+    }
+
+    public int getBusId() {
+        return busId;
     }
 }

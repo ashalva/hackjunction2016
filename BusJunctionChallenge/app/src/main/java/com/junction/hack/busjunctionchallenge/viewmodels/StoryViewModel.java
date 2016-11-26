@@ -5,26 +5,27 @@ import com.junction.hack.busjunctionchallenge.models.StoryResponse;
 import com.junction.hack.busjunctionchallenge.service.Service;
 import com.junction.hack.busjunctionchallenge.service.ServiceLocalImpl;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by dn on 11/26/16.
  */
 
-public class StoryViewModel {
+public class StoryViewModel implements Serializable {
 
     private List<Story> stories;
-    StoryResponse storyResponse;
+    private StoryResponse storyResponse;
     private int index;
 
-    public StoryViewModel() {
+    public StoryViewModel(String routeNumber, int busId) {
         this.index = 0;
 
         Service service = new ServiceLocalImpl();
-        this.storyResponse = service.getStory(12, 23);
+        this.storyResponse = service.getStory(busId, routeNumber);
         this.stories = this.storyResponse.getStoryList();
-
     }
+
 
     public Story nextStory() {
         Story story = null;

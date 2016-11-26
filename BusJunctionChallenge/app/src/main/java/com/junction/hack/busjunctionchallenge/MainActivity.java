@@ -1,5 +1,7 @@
 package com.junction.hack.busjunctionchallenge;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.junction.hack.busjunctionchallenge.viewmodels.MainViewModel;
+import com.junction.hack.busjunctionchallenge.viewmodels.StoryViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         routeNumbersListView = (ListView) findViewById(R.id.route_numbers);
 
-        MainViewModel mainViewModel = new MainViewModel();
+        final MainViewModel mainViewModel = new MainViewModel();
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -42,12 +45,19 @@ public class MainActivity extends AppCompatActivity {
                 int itemPosition     = position;
 
                 // ListView Clicked item value
-                String  itemValue    = (String) routeNumbersListView.getItemAtPosition(position);
+                String  routeNumber    = (String) routeNumbersListView.getItemAtPosition(position);
 
                 // Show Alert, Start activity later
                 Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
+                        "Position :"+itemPosition+"  ListItem : " +routeNumber , Toast.LENGTH_LONG)
                         .show();
+
+                StoryViewModel storyViewModel = new StoryViewModel(routeNumber, mainViewModel.getBusId());
+
+                Intent intent = new Intent(getBaseContext(), StoryActivity.class);
+                intent.putExtra("StoryViewModel", storyViewModel);
+                startActivity(intent);
+
 
             }
 

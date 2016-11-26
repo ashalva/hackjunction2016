@@ -5,5 +5,5 @@ import com.junction.hack.busjunctionchallenge.models.StoryResponse;
 
 public interface Service {
     BusNumberResponse getBusNumbers(float lng, float ltd);
-    StoryResponse getStory(int busNumber, int stationId);
+    StoryResponse getStory(int busNumber, String routeNumber);
 }

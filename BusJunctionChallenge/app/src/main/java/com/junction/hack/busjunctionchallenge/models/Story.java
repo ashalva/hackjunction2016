@@ -1,12 +1,8 @@
 package com.junction.hack.busjunctionchallenge.models;
 
-import android.widget.ImageView;
+import java.io.Serializable;
 
-/**
- * Created by dn on 11/26/16.
- */
-
-public class Story {
+public class Story implements Serializable {
     private int image;
     private String title;
     private String description;

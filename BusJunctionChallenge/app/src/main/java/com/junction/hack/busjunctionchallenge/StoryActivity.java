@@ -45,11 +45,12 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
 
+        storyViewModel = (StoryViewModel) getIntent().getSerializableExtra("StoryViewModel");
+
         _image = (ImageView) findViewById(R.id.story_display_image);
         _titleTextView = (TextView) findViewById(R.id.title_textview);
         _descriptionTextView = (TextView) findViewById(R.id.description_textview);
 
-        storyViewModel = new StoryViewModel();
         setNextStory(_image, _titleTextView, _descriptionTextView, storyViewModel);
 
         Button nextStory = (Button) findViewById(R.id.next_story_button);
