@@ -147,7 +147,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
 
     private String formatTime(long millisUntilFinished) {
         int seconds = (int) ((millisUntilFinished % 60000) / 1000);
-        return "COMING IN: " + millisUntilFinished / 60000 + ":" + seconds;
+        return this.storyViewModel.getRouteNumber() + " COMING IN: " + millisUntilFinished / 60000 + ":" + seconds;
     }
 
     private void createRoute(RelativeLayout view) {

@@ -17,11 +17,13 @@ public class StoryViewModel implements Serializable {
     private List<Story> stories;
     private StoryResponse storyResponse;
     private int index;
+    private String routeNumber;
 
     public StoryViewModel(String routeNumber, int busId) {
         this.index = 0;
 
         Service service = new ServiceLocalImpl();
+        this.routeNumber = routeNumber;
         this.storyResponse = service.getStory(busId, routeNumber);
         this.stories = this.storyResponse.getStoryList();
     }
@@ -53,4 +55,11 @@ public class StoryViewModel implements Serializable {
         return this.storyResponse.getMinutes() * 60 * 1000;
     }
 
+    public String getRouteNumber() {
+        return routeNumber;
+    }
+
+    public void setRouteNumber(String routeNumber) {
+        this.routeNumber = routeNumber;
+    }
 }
