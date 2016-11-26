@@ -7,17 +7,17 @@ import java.util.List;
  */
 
 public class BusNumberResponse {
-    private List<Integer> busNumbers;
+    private List<String> busNumbers;
     private int busId;
 
     public BusNumberResponse() {
     }
 
-    public List<Integer> getBusNumbers() {
+    public List<String> getBusNumbers() {
         return busNumbers;
     }
 
-    public void setBusNumbers(List<Integer> busNumbers) {
+    public void setBusNumbers(List<String> busNumbers) {
         this.busNumbers = busNumbers;
     }
 

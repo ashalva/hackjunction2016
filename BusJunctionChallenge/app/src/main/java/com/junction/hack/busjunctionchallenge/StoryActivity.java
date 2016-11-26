@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.junction.hack.busjunctionchallenge.Helpers.Coordinate;
 import com.junction.hack.busjunctionchallenge.Helpers.Helpers;
 import com.junction.hack.busjunctionchallenge.models.Story;
-import com.junction.hack.busjunctionchallenge.factory.StoryFactory;
 import com.junction.hack.busjunctionchallenge.viewmodels.StoryViewModel;
 
 import java.util.ArrayList;

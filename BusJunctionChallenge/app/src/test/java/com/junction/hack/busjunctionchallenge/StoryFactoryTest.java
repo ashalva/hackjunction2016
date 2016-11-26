@@ -1,7 +1,7 @@
 package com.junction.hack.busjunctionchallenge;
 
 import com.junction.hack.busjunctionchallenge.models.Story;
-import com.junction.hack.busjunctionchallenge.factory.StoryFactory;
+import com.junction.hack.busjunctionchallenge.factory.StoryResponseFactory;
 
 import org.junit.Test;
 
@@ -15,22 +15,22 @@ public class StoryFactoryTest {
 
     @Test
     public void factory_check() {
-        StoryFactory storyFactory = new StoryFactory();
+        StoryResponseFactory storyResponseFactory = new StoryResponseFactory();
 
-        Story story = storyFactory.nextStory();
+        Story story = storyResponseFactory.getStories().get(0);
+        assertEquals(story.getTitle(), "Ronald Reagan");
+
+        story = storyResponseFactory.getStories().get(1);
         assertEquals(story.getTitle(), "Bill Clinton");
 
-        story = storyFactory.nextStory();
+        story = storyResponseFactory.getStories().get(2);
         assertEquals(story.getTitle(), "George W. Bush");
 
-        story = storyFactory.nextStory();
+        story = storyResponseFactory.getStories().get(3);
         assertEquals(story.getTitle(), "Barack Obama");
 
-        story = storyFactory.nextStory();
+        story = storyResponseFactory.getStories().get(4);
         assertEquals(story.getTitle(), "Donald Trump");
-
-        story = storyFactory.nextStory();
-        assertNull(story);
 
     }
 
