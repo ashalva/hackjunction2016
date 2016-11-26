@@ -1,20 +1,25 @@
 package com.junction.hack.busjunctionchallenge.service;
 
-import com.junction.hack.busjunctionchallenge.factory.StoryFactory;
+import com.junction.hack.busjunctionchallenge.factory.BusNumberResponseFactory;
+import com.junction.hack.busjunctionchallenge.factory.StoryResponseFactory;
 import com.junction.hack.busjunctionchallenge.models.BusNumberResponse;
 import com.junction.hack.busjunctionchallenge.models.StoryResponse;
 
-import java.util.List;
+public class ServiceLocalImpl implements Service {
 
-public class ServiceLocalImpl implements IService {
+    public BusNumberResponse getBusNumbers(float lng, float ltd) {
+        BusNumberResponseFactory bf = new BusNumberResponseFactory();
 
-    public List<BusNumberResponse> getBusNumbers(float lng, float ltd) {
-        return null;
+        BusNumberResponse busNumberResponse = new BusNumberResponse();
+        busNumberResponse.setBusId(bf.getBusId());
+        busNumberResponse.setBusNumbers(bf.getBusNumbers());
+
+        return busNumberResponse;
     }
 
     public StoryResponse getStory(int busNumber, int stationId) {
 
-        StoryFactory sf = new StoryFactory();
+        StoryResponseFactory sf = new StoryResponseFactory();
         StoryResponse storyResponse = new StoryResponse();
         storyResponse.setStoryList(sf.getStories());
         storyResponse.setMinutes(sf.getMinutes());

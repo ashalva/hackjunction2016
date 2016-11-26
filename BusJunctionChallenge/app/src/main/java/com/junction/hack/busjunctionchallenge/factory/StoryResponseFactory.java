@@ -10,12 +10,12 @@ import java.util.List;
  * Created by dn on 11/26/16.
  */
 
-public class StoryFactory {
+public class StoryResponseFactory {
 
     private List<Story> stories;
     private int minutes;
 
-    public StoryFactory() {
+    public StoryResponseFactory() {
         this.stories = new ArrayList<>();
         this.minutes = 1;
 

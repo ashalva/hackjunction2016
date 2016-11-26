@@ -2,7 +2,7 @@ package com.junction.hack.busjunctionchallenge.viewmodels;
 
 import com.junction.hack.busjunctionchallenge.models.Story;
 import com.junction.hack.busjunctionchallenge.models.StoryResponse;
-import com.junction.hack.busjunctionchallenge.service.IService;
+import com.junction.hack.busjunctionchallenge.service.Service;
 import com.junction.hack.busjunctionchallenge.service.ServiceLocalImpl;
 
 import java.util.List;
@@ -20,12 +20,11 @@ public class StoryViewModel {
     public StoryViewModel() {
         this.index = 0;
 
-        IService service = new ServiceLocalImpl();
+        Service service = new ServiceLocalImpl();
         this.storyResponse = service.getStory(12, 23);
         this.stories = this.storyResponse.getStoryList();
 
     }
-
 
     public Story nextStory() {
         Story story = null;

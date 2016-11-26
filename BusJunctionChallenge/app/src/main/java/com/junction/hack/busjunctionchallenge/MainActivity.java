@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.junction.hack.busjunctionchallenge.viewmodels.MainViewModel;
+
 public class MainActivity extends AppCompatActivity {
 
     ListView routeNumbersListView;
@@ -19,15 +21,11 @@ public class MainActivity extends AppCompatActivity {
 
         routeNumbersListView = (ListView) findViewById(R.id.route_numbers);
 
-        String[] routes = new String[] { "32",
-                "159",
-                "122",
-                "33",
-        };
+        MainViewModel mainViewModel = new MainViewModel();
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, routes);
+                android.R.layout.simple_list_item_1, android.R.id.text1, mainViewModel.getBusNumbers());
 
 
         // Assign adapter to ListView
