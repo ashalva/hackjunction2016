@@ -43,17 +43,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                // ListView Clicked item index
-                int itemPosition     = position;
-
                 // ListView Clicked item value
                 BusRoute  busRoute    = (BusRoute) routeNumbersListView.getItemAtPosition(position);
                 String routeNumber = busRoute.getBusNumber();
 
-                // Show Alert, Start activity later
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +routeNumber , Toast.LENGTH_LONG)
-                        .show();
 
                 StoryViewModel storyViewModel = new StoryViewModel(routeNumber, mainViewModel.getBusId());
 
@@ -61,11 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("StoryViewModel", storyViewModel);
                 startActivity(intent);
 
-
             }
 
         });
-
 
     }
 }

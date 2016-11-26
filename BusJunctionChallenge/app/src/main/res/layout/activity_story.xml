@@ -47,6 +47,7 @@
             android:layout_weight="90"
             android:weightSum="100">
             <LinearLayout
+                android:id="@+id/like_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="33">
@@ -56,6 +57,7 @@
                     android:background="@drawable/like"
                     android:layout_gravity="center"/>
                 <TextView
+                    android:id="@+id/number_of_likes"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@android:color/black"
@@ -64,6 +66,7 @@
                     android:text="527"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/suprise_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="33">
@@ -73,6 +76,7 @@
                     android:background="@drawable/suprise"
                     android:layout_gravity="center"/>
                 <TextView
+                    android:id="@+id/number_of_surprises"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@android:color/black"
@@ -81,6 +85,7 @@
                     android:text="112"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/hart_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="33">
@@ -90,6 +95,7 @@
                     android:background="@drawable/heart"
                     android:layout_gravity="center"/>
                 <TextView
+                    android:id="@+id/number_of_harts"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@android:color/black"

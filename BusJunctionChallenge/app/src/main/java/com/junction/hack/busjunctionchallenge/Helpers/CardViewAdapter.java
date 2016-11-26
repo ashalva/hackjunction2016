@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.junction.hack.busjunctionchallenge.R;
 import com.junction.hack.busjunctionchallenge.models.Story;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**
@@ -38,6 +36,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.StoryV
         holder.description.setText(stories.get(i).getDescription());
         holder.header.setText(stories.get(i).getTitle());
         holder.personPhoto.setBackgroundResource(stories.get(i).getImage());
+//        holder.surprise.setText(stories.get(i).getSuprise());
+//        holder.hart.setText(stories.get(i).getHart());
+//        holder.like.setText(stories.get(i).getLikes());
     }
 
     @Override
@@ -57,6 +58,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.StoryV
         ImageView coverPhoto;
         ImageView personPhoto;
 
+        TextView like;
+        TextView surprise;
+        TextView hart;
+
         StoryViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.story_recyclerview);
@@ -64,6 +69,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.StoryV
             header = (TextView)itemView.findViewById(R.id.person_name);
             personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
             coverPhoto = (ImageView)itemView.findViewById(R.id.cover_photo);
+
+            like = (TextView)itemView.findViewById(R.id.number_of_likes);
+            surprise = (TextView)itemView.findViewById(R.id.number_of_surprises);
+            hart = (TextView)itemView.findViewById(R.id.number_of_harts);
         }
     }
 

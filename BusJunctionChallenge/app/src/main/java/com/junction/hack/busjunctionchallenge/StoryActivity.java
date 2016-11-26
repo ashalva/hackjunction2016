@@ -13,6 +13,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import com.junction.hack.busjunctionchallenge.Helpers.Coordinate;
 import com.junction.hack.busjunctionchallenge.Helpers.DrawView;
 import com.junction.hack.busjunctionchallenge.Helpers.Helpers;
 import com.junction.hack.busjunctionchallenge.viewmodels.StoryViewModel;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +83,42 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
                 }
             }
         });
+
+
+        LinearLayout likes_layout = (LinearLayout) findViewById(R.id.like_button);
+        final TextView numberOfLIkes = (TextView) findViewById(R.id.number_of_likes);
+        likes_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int likes = Integer.valueOf((String) numberOfLIkes.getText());
+                likes += 1;
+                numberOfLIkes.setText(String.valueOf(likes));
+            }
+        });
+
+        LinearLayout surprise_layout = (LinearLayout) findViewById(R.id.suprise_button);
+        final TextView numberOfSurprises = (TextView) findViewById(R.id.number_of_surprises);
+        surprise_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int surprise = Integer.valueOf((String) numberOfSurprises.getText());
+                surprise += 1;
+                numberOfSurprises.setText(String.valueOf(surprise));
+            }
+        });
+
+
+        LinearLayout hart_layout = (LinearLayout) findViewById(R.id.hart_button);
+        final TextView numberOfHarts = (TextView) findViewById(R.id.number_of_harts);
+        hart_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int hart = Integer.valueOf((String) numberOfHarts.getText());
+                hart += 1;
+                numberOfHarts.setText(String.valueOf(hart));
+            }
+        });
+
     }
 
     @Override

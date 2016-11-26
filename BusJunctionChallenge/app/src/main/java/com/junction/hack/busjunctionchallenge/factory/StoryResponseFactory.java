@@ -20,19 +20,19 @@ public class StoryResponseFactory {
         this.minutes = 1;
 
         this.stories.add(
-                new Story(R.drawable.donald_trump, "Ronald Reagan", "Ronald Wilson Reagan (/ˈrɒnəld ˈwɪlsən ˈreɪɡən/; February 6, 1911 – June 5, 2004) was an American politician and actor who was the 40th President of the United States")
+                new Story(R.drawable.donald_trump, "Ronald Reagan", "Ronald Wilson Reagan (/ˈrɒnəld ˈwɪlsən ˈreɪɡən/; February 6, 1911 – June 5, 2004) was an American politician and actor who was the 40th President of the United States", 20, 3, 1)
         );
         this.stories.add(
-                new Story(R.drawable.bill_clinton, "Bill Clinton", "William Jefferson \"Bill\" Clinton (born William Jefferson Blythe III; August 19, 1946) is an American politician who served as the 42nd President of the United States from 1993 to 2001.")
+                new Story(R.drawable.bill_clinton, "Bill Clinton", "William Jefferson \"Bill\" Clinton (born William Jefferson Blythe III; August 19, 1946) is an American politician who served as the 42nd President of the United States from 1993 to 2001.", 15, 7, 3)
         );
         this.stories.add(
-                new Story(R.drawable.george_w_bush, "George W. Bush", "George Walker Bush (born July 6, 1946) is an American politician who was the 43rd President of the United States from 2001 to 2009.")
+                new Story(R.drawable.george_w_bush, "George W. Bush", "George Walker Bush (born July 6, 1946) is an American politician who was the 43rd President of the United States from 2001 to 2009.", 44, 43, 4)
         );
         this.stories.add(
-                new Story(R.drawable.barack_obama, "Barack Obama", "Barack Hussein Obama II born August 4, 1961) is an American politician who is the 44th and current President of the United States.")
+                new Story(R.drawable.barack_obama, "Barack Obama", "Barack Hussein Obama II born August 4, 1961) is an American politician who is the 44th and current President of the United States.", 21, 33, 75)
         );
         this.stories.add(
-                new Story(R.drawable.donald_trump, "Donald Trump", "Donald John Trump is an American businessman and the President-elect of the United States. In June 2015, Trump announced his candidacy for president as a Republican and quickly emerged as the front-runner for his party's nomination.")
+                new Story(R.drawable.donald_trump, "Donald Trump", "Donald John Trump is an American businessman and the President-elect of the United States. In June 2015, Trump announced his candidacy for president as a Republican and quickly emerged as the front-runner for his party's nomination.", 89, 21, 34)
         );
     }
 
