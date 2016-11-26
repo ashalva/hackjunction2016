@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
@@ -24,23 +25,25 @@ import java.util.List;
 
 public class StoryActivity extends AppCompatActivity implements Animation.AnimationListener {
 
+    private StoryActivity _activity;
     private View _startPoint;
     private View _endPoint;
-    private List<Coordinate> _coordinateList;
-    private boolean _viewWasGenerated;
+    private View _mainPoint;
 
-    ImageView image;
-    TextView titleTextView;
-    TextView descriptionTextView;
+    private TranslateAnimation _anim;
+    private List<Coordinate> _coordinateList;
+
+    private boolean _viewWasGenerated;
+    private int _index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
 
-        image = (ImageView) findViewById(R.id.story_display_image);
-        titleTextView = (TextView) findViewById(R.id.title_textview);
-        descriptionTextView = (TextView) findViewById(R.id.description_textview);
+        final ImageView image = (ImageView) findViewById(R.id.story_display_image);
+        final TextView titleTextView = (TextView) findViewById(R.id.title_textview);
+        final TextView descriptionTextView = (TextView) findViewById(R.id.description_textview);
 
 
         //        INIT factory
@@ -56,12 +59,11 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
             }
         });
 
-
-        _coordinateList = new ArrayList<Coordinate>();
+        _coordinateList = new ArrayList<>();
 
         final RelativeLayout routeInnerLayout = (RelativeLayout) findViewById(R.id.route_inner_layout);
-        _startPoint = (View) findViewById(R.id.starter_point);
-        _endPoint = (View) findViewById(R.id.end_point);
+        _startPoint = findViewById(R.id.starter_point);
+        _endPoint = findViewById(R.id.end_point);
 
         routeInnerLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -74,8 +76,6 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
             }
         });
     }
-
-    private int _index = 0;
 
     private void createRoute(RelativeLayout view) {
         double pointSize = 10.0;
@@ -92,13 +92,12 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
 
             View newPoint = new View(this);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(pointSize, this), Helpers.convertDpToPixel(pointSize, this));
+
             if (i % 2 == 0)
-                if (i == 0)
-                    startY += differenceY;
-                else
-                    startY += differenceY * 2;
+                startY += (i == 0) ? differenceY : differenceY * 2;
             else
                 startY -= differenceY;
+
             startX += nextX;
             newPoint.setX(startX);
             newPoint.setY(startY);
@@ -109,12 +108,8 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
             view.addView(newPoint);
         }
 
-
     }
 
-    private View _mainPoint;
-    private TranslateAnimation _anim;
-    private StoryActivity act;
     private void startPointAnimation(RelativeLayout view) {
         float pointSize = 15f;
         RelativeLayout.LayoutParams mainPointParams = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(pointSize, this), Helpers.convertDpToPixel(pointSize, this));
@@ -124,33 +119,25 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         _mainPoint.setX(_startPoint.getX());
         _mainPoint.setY(_startPoint.getY());
 
-        act = this;
+        _activity = this;
         view.addView(_mainPoint);
         try {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (_index < _coordinateList.size()) {
-                        float difY = 0;
-                        if ( _coordinateList.get(_index).get_y() >  _mainPoint.getY())
-                            difY = _coordinateList.get(_index).get_y() -  _mainPoint.getY();
-                        else
-                            difY = ( _mainPoint.getY() - _coordinateList.get(_index).get_y());
-                        _anim = new TranslateAnimation(0,
-                                _coordinateList.get(_index).get_x() - _mainPoint.getX(),
-                                0,
-                                difY);
+                    _anim = new TranslateAnimation(0,
+                            _coordinateList.get(_index).get_x() - _mainPoint.getX(),
+                            0,
+                            _coordinateList.get(_index).get_y() - _mainPoint.getY());
 
-                        _anim.setAnimationListener(act);
-                        _anim.setFillAfter(true);
-                        _anim.setDuration(500);
-                        _mainPoint.startAnimation(_anim);
-                    } else {
-                    }
+                    _anim.setAnimationListener(_activity);
+                    _anim.setFillAfter(true);
+                    _anim.setDuration(500);
+                    _mainPoint.startAnimation(_anim);
                 }
             });
         } catch (Exception ex) {
-            System.out.println(ex.toString());
+            Log.e("startPointAnimation", ex.toString());
         }
 }
 
@@ -175,7 +162,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
                         0,
                         difY);
 
-                _anim.setAnimationListener(act);
+                _anim.setAnimationListener(_activity);
                 _anim.setFillAfter(true);
                 _anim.setDuration(500);
                 _mainPoint.startAnimation(_anim);
