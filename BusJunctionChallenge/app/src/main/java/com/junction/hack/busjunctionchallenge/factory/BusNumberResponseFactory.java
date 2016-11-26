@@ -19,11 +19,11 @@ public class BusNumberResponseFactory {
 
         this.busId = 12345;
 
-        this.busRoutes.add(new BusRoute("122A", "KAMPPI", "21:21", "15:20"));
-        this.busRoutes.add(new BusRoute("16A", "University of Helsinki", "21:21", "15:20"));
-        this.busRoutes.add(new BusRoute("52", "Kaisaniemi park", "21:21", "15:20"));
-        this.busRoutes.add(new BusRoute("69", "Olimpiaterminaali", "21:21", "15:20"));
-        this.busRoutes.add(new BusRoute("550", "City Center Campus", "21:21", "15:20"));
+        this.busRoutes.add(new BusRoute("122A", "KAMPPI", "21:21", "15 minutes"));
+        this.busRoutes.add(new BusRoute("16A", "University of Helsinki", "21:21", "12 minutes"));
+        this.busRoutes.add(new BusRoute("52", "Kaisaniemi park", "21:21", "12 inutes"));
+        this.busRoutes.add(new BusRoute("69", "Olimpiaterminaali", "21:21", "11 minutes"));
+        this.busRoutes.add(new BusRoute("550", "City Center Campus", "21:21", "15 minutes"));
 
     }
 

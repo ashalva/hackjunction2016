@@ -17,7 +17,7 @@ public class StoryResponseFactory {
 
     public StoryResponseFactory() {
         this.stories = new ArrayList<>();
-        this.minutes = 1;
+        this.minutes = 2;
 
         this.stories.add(
                 new Story(R.drawable.donald_trump, "Ronald Reagan", "Ronald Wilson Reagan (/ˈrɒnəld ˈwɪlsən ˈreɪɡən/; February 6, 1911 – June 5, 2004) was an American politician and actor who was the 40th President of the United States", 20, 3, 1)

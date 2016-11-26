@@ -1,6 +1,7 @@
 package com.junction.hack.busjunctionchallenge;
 
 import android.content.DialogInterface;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -128,29 +129,27 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
                 return super.onOptionsItemSelected(item);
         }
     }
-    int secondCount = 0;
-    int minuteCount = 0;
+
     private void startCountDown() {
         final TextView countDown = (TextView)findViewById(R.id.countdown);
-        minuteCount = storyViewModel.getDuration();
-        countDown.setText(String.format("COMING IN 9:20",minuteCount,secondCount));
-        Timer T=new Timer();
-        T.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        secondCount++;
+        new CountDownTimer(storyViewModel.getTravelDuration(), 1000) {
 
-                    }
-                });
+            public void onTick(long millisUntilFinished) {
+                countDown.setText(formatTime(millisUntilFinished));
             }
-        }, 1000, 1000);
+
+            public void onFinish() {
+                countDown.setText("BUS ARRIVED");
+            }
+        }.start();
 
     }
+
+    private String formatTime(long millisUntilFinished) {
+        int seconds = (int) ((millisUntilFinished % 60000) / 1000);
+        return "COMING IN: " + millisUntilFinished / 60000 + ":" + seconds;
+    }
+
     private void createRoute(RelativeLayout view) {
 
         float startX = _startPoint.getX() + _startPoint.getWidth() / 2;
