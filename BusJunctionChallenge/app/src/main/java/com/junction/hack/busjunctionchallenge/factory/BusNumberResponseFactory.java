@@ -1,5 +1,7 @@
 package com.junction.hack.busjunctionchallenge.factory;
 
+import com.junction.hack.busjunctionchallenge.models.BusRoute;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,24 +11,25 @@ import java.util.List;
 
 public class BusNumberResponseFactory {
 
-    private List<String> busNumbers;
+    private List<BusRoute> busRoutes;
     private int busId;
 
     public BusNumberResponseFactory() {
-        this.busNumbers = new ArrayList<>();
+        this.busRoutes = new ArrayList<>();
 
         this.busId = 12345;
 
-        this.busNumbers.add("122");
-        this.busNumbers.add("44");
-        this.busNumbers.add("32");
-        this.busNumbers.add("12");
+        this.busRoutes.add(new BusRoute("122A", "KAMPPI", "21:21", "15:20"));
+        this.busRoutes.add(new BusRoute("16A", "University of Helsinki", "21:21", "15:20"));
+        this.busRoutes.add(new BusRoute("52", "Kaisaniemi park", "21:21", "15:20"));
+        this.busRoutes.add(new BusRoute("69", "Olimpiaterminaali", "21:21", "15:20"));
+        this.busRoutes.add(new BusRoute("550", "City Center Campus", "21:21", "15:20"));
 
     }
 
 
-    public List<String> getBusNumbers() {
-        return busNumbers;
+    public List<BusRoute> getBusRoutes() {
+        return busRoutes;
     }
 
     public int getBusId() {

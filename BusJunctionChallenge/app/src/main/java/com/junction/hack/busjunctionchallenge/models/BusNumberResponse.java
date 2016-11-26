@@ -7,18 +7,18 @@ import java.util.List;
  */
 
 public class BusNumberResponse {
-    private List<String> busNumbers;
+    private List<BusRoute> busRoutes;
     private int busId;
 
     public BusNumberResponse() {
     }
 
-    public List<String> getBusNumbers() {
-        return busNumbers;
+    public List<BusRoute> getBusRoutes() {
+        return busRoutes;
     }
 
-    public void setBusNumbers(List<String> busNumbers) {
-        this.busNumbers = busNumbers;
+    public void setBusRoutes(List<BusRoute> busRoutes) {
+        this.busRoutes = busRoutes;
     }
 
     public int getBusId() {
