@@ -49,8 +49,6 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         //        INIT factory
         final StoryFactory storyFactory = new StoryFactory();
         setNextStory(image, titleTextView, descriptionTextView, storyFactory);
-
-
         Button nextStory = (Button) findViewById(R.id.next_story_button);
         nextStory.setOnClickListener(new View.OnClickListener() {
             @Override
