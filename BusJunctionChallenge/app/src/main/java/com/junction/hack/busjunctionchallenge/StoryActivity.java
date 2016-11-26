@@ -85,6 +85,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
 
     private View _mainPoint;
     private TranslateAnimation _anim;
+    private StoryActivity act;
     private void startPointAnimation(RelativeLayout view) {
         float pointSize = 15f;
         RelativeLayout.LayoutParams mainPointParams = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(pointSize, this), Helpers.convertDpToPixel(pointSize, this));
@@ -94,7 +95,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         _mainPoint.setX(_startPoint.getX());
         _mainPoint.setY(_startPoint.getY());
 
-        final StoryActivity act = this;
+        act = this;
         view.addView(_mainPoint);
         try {
             runOnUiThread(new Runnable() {
@@ -109,7 +110,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
                         _anim = new TranslateAnimation(0,
                                 _coordinateList.get(_index).get_x() - _mainPoint.getX(),
                                 0,
-                                _coordinateList.get(_index).get_y() -  _mainPoint.getY());
+                                difY);
 
                         _anim.setAnimationListener(act);
                         _anim.setFillAfter(true);
@@ -126,16 +127,28 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
 
     @Override
     public void onAnimationStart(Animation animation) {
-        int a = 1;
     }
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        if (_index < _coordinateList.size()) {
+        if (_index < _coordinateList.size() - 1) {
             _mainPoint.setX(_coordinateList.get(_index).get_x());
             _mainPoint.setY(_coordinateList.get(_index).get_y());
             _index++;
-            if (_anim.hasEnded()) {
+            if (_anim.hasEnded() && _index < _coordinateList.size()) {
+                float difY = 0;
+                if ( _coordinateList.get(_index).get_y() >  _mainPoint.getY())
+                    difY = _coordinateList.get(_index).get_y() -  _mainPoint.getY();
+                else
+                    difY = -( _mainPoint.getY() - _coordinateList.get(_index).get_y());
+                _anim = new TranslateAnimation(0,
+                        _coordinateList.get(_index).get_x() - _mainPoint.getX(),
+                        0,
+                        difY);
+
+                _anim.setAnimationListener(act);
+                _anim.setFillAfter(true);
+                _anim.setDuration(500);
                 _mainPoint.startAnimation(_anim);
             }
         }
