@@ -1,4 +1,4 @@
-package com.junction.hack.busjunctionchallenge.Helpers;
+package com.junction.hack.busjunctionchallenge.models;
 
 import android.widget.ImageView;
 

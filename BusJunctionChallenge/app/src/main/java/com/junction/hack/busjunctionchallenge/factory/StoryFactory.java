@@ -1,6 +1,6 @@
 package com.junction.hack.busjunctionchallenge.factory;
 
-import com.junction.hack.busjunctionchallenge.Helpers.Story;
+import com.junction.hack.busjunctionchallenge.models.Story;
 import com.junction.hack.busjunctionchallenge.R;
 
 import java.util.ArrayList;
@@ -13,12 +13,15 @@ import java.util.List;
 public class StoryFactory {
 
     private List<Story> stories;
-    private int index;
+    private int minutes;
 
     public StoryFactory() {
         this.stories = new ArrayList<>();
-        this.index = 0;
+        this.minutes = 2;
 
+        this.stories.add(
+                new Story(R.drawable.donald_trump, "Ronald Reagan", "Ronald Wilson Reagan (/ˈrɒnəld ˈwɪlsən ˈreɪɡən/; February 6, 1911 – June 5, 2004) was an American politician and actor who was the 40th President of the United States")
+        );
         this.stories.add(
                 new Story(R.drawable.bill_clinton, "Bill Clinton", "William Jefferson \"Bill\" Clinton (born William Jefferson Blythe III; August 19, 1946) is an American politician who served as the 42nd President of the United States from 1993 to 2001.")
         );
@@ -34,15 +37,15 @@ public class StoryFactory {
 
     }
 
-    public Story nextStory() {
-        Story story = null;
-        try {
-            story = this.stories.get(this.index);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.print("No more Stories");
-        }
-        this.index += 1;
-        return story;
+    public int getMinutes() {
+        return minutes;
     }
 
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public List<Story> getStories() {
+        return stories;
+    }
 }
