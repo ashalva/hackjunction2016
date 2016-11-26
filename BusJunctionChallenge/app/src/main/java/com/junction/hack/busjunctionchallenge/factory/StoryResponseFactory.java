@@ -20,19 +20,21 @@ public class StoryResponseFactory {
         this.minutes = 2;
 
         this.stories.add(
-                new Story(R.drawable.donald_trump, "Ronald Reagan", "Ronald Wilson Reagan (/ˈrɒnəld ˈwɪlsən ˈreɪɡən/; February 6, 1911 – June 5, 2004) was an American politician and actor who was the 40th President of the United States", 20, 3, 1)
+                new Story(R.drawable.helen_energy, "Helsingi Energia", "The World's most efficient energy production organisation, with 400k customers and aim to achieve 100% carbon-neutrality in energy.", 20, 3, 1)
         );
         this.stories.add(
-                new Story(R.drawable.bill_clinton, "Bill Clinton", "William Jefferson \"Bill\" Clinton (born William Jefferson Blythe III; August 19, 1946) is an American politician who served as the 42nd President of the United States from 1993 to 2001.", 15, 7, 3)
+                new Story(R.drawable.rakennustieto, "Rakennustieto", "Juridical Building Information Foundation; 1972 Bulding Information LTD; Domicile Finland, Estonia, Russia.", 15, 7, 3)
         );
         this.stories.add(
-                new Story(R.drawable.george_w_bush, "George W. Bush", "George Walker Bush (born July 6, 1946) is an American politician who was the 43rd President of the United States from 2001 to 2009.", 44, 43, 4)
+                new Story(R.drawable.bigbank, "Bigbank", "It is an Estonian bank opened in Finland in 2009. BigBank started operations in Tartu, Estonia in 1992.", 44, 43, 4)
         );
         this.stories.add(
-                new Story(R.drawable.barack_obama, "Barack Obama", "Barack Hussein Obama II born August 4, 1961) is an American politician who is the 44th and current President of the United States.", 21, 33, 75)
+                new Story(R.drawable.fredrikinkatu, "Fredrikinkatu street", "Majority of Fredrikinkatu street is a one-way street going north, although Helsinki's tram lines (3B and 3T) " +
+                        "on it run in both directions between the Viiskulma intersection and Bulevardi.", 21, 33, 75)
         );
         this.stories.add(
-                new Story(R.drawable.donald_trump, "Donald Trump", "Donald John Trump is an American businessman and the President-elect of the United States. In June 2015, Trump announced his candidacy for president as a Republican and quickly emerged as the front-runner for his party's nomination.", 89, 21, 34)
+                new Story(R.drawable.weekend_festival, "Weekend Festival", " The \"Weekend Festival\" is one of Europe's biggest electronic music festivals, " +
+                        "attracting the finest DJs from across the globe to the Finnish capital Helsinki", 89, 21, 34)
         );
     }
 
