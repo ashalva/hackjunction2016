@@ -49,24 +49,24 @@ public class Story implements Serializable {
         this.description = description;
     }
 
-    public int getLikes() {
-        return likes;
+    public String getLikes() {
+        return String.valueOf(likes);
     }
 
     public void setLikes(int likes) {
         this.likes = likes;
     }
 
-    public int getSuprise() {
-        return suprise;
+    public String getSuprise() {
+        return String.valueOf(suprise);
     }
 
     public void setSuprise(int suprise) {
         this.suprise = suprise;
     }
 
-    public int getHart() {
-        return hart;
+    public String getHart() {
+        return String.valueOf(hart);
     }
 
     public void setHart(int hart) {

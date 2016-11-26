@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.junction.hack.busjunctionchallenge.R;
+import com.junction.hack.busjunctionchallenge.StoryActivity;
 import com.junction.hack.busjunctionchallenge.models.Story;
 
 import java.util.List;
@@ -19,15 +20,17 @@ import java.util.List;
 public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.StoryViewHolder>{
 
     List<Story> stories;
-    public CardViewAdapter(List<Story> stories){
+    StoryActivity storyActivity;
+    public CardViewAdapter(List<Story> stories, StoryActivity activity){
         this.stories = stories;
+        this.storyActivity = activity;
     }
 
     @Override
     public StoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_story_display, parent, false);
         v.setMinimumWidth(parent.getMeasuredWidth());
-        StoryViewHolder pvh = new StoryViewHolder(v);
+        StoryViewHolder pvh = new StoryViewHolder(v, storyActivity);
         return pvh;
     }
 
@@ -36,9 +39,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.StoryV
         holder.description.setText(stories.get(i).getDescription());
         holder.header.setText(stories.get(i).getTitle());
         holder.personPhoto.setBackgroundResource(stories.get(i).getImage());
-//        holder.surprise.setText(stories.get(i).getSuprise());
-//        holder.hart.setText(stories.get(i).getHart());
-//        holder.like.setText(stories.get(i).getLikes());
+
+        holder.surprise.setText(stories.get(i).getSuprise());
+        holder.hart.setText(stories.get(i).getHart());
+        holder.like.setText(stories.get(i).getLikes());
     }
 
     @Override
@@ -62,7 +66,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.StoryV
         TextView surprise;
         TextView hart;
 
-        StoryViewHolder(View itemView) {
+        StoryViewHolder(View itemView, StoryActivity storyActivity) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.story_recyclerview);
             description = (TextView)itemView.findViewById(R.id.description);
@@ -70,9 +74,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.StoryV
             personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
             coverPhoto = (ImageView)itemView.findViewById(R.id.cover_photo);
 
-            like = (TextView)itemView.findViewById(R.id.number_of_likes);
-            surprise = (TextView)itemView.findViewById(R.id.number_of_surprises);
-            hart = (TextView)itemView.findViewById(R.id.number_of_harts);
+            like = (TextView) storyActivity.findViewById(R.id.number_of_likes);
+            surprise = (TextView) storyActivity.findViewById(R.id.number_of_surprises);
+            hart = (TextView) storyActivity.findViewById(R.id.number_of_harts);
         }
     }
 

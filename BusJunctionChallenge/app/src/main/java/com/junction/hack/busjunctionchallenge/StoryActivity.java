@@ -59,7 +59,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
 
         storyViewModel = (StoryViewModel) getIntent().getSerializableExtra("StoryViewModel");
 
-        CardViewAdapter adapter = new CardViewAdapter(storyViewModel.getStories());
+        CardViewAdapter adapter = new CardViewAdapter(storyViewModel.getStories(), this);
         rv = (RecyclerView)findViewById(R.id.story_recyclerview);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
