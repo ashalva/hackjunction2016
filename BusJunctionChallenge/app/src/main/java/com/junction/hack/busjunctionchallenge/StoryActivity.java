@@ -1,7 +1,8 @@
 package com.junction.hack.busjunctionchallenge;
 
-import android.graphics.Color;
+import android.content.DialogInterface;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,15 +17,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.junction.hack.busjunctionchallenge.Helpers.CardViewAdapter;
 import com.junction.hack.busjunctionchallenge.Helpers.Coordinate;
 import com.junction.hack.busjunctionchallenge.Helpers.DrawView;
 import com.junction.hack.busjunctionchallenge.Helpers.Helpers;
+import com.junction.hack.busjunctionchallenge.Helpers.MyCustomLayoutManager;
 import com.junction.hack.busjunctionchallenge.viewmodels.StoryViewModel;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,15 +40,12 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private TranslateAnimation _anim;
     private List<Coordinate> _coordinateList;
 
-    private ImageView _image;
-    private TextView _titleTextView;
-    private TextView _descriptionTextView;
     private StoryViewModel storyViewModel;
     private boolean _viewWasGenerated;
     private int _index = 0;
 
     double _pointSize = 14.0;
-    private RecyclerView rv;
+    private RecyclerView _recycleView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,11 +56,12 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         storyViewModel = (StoryViewModel) getIntent().getSerializableExtra("StoryViewModel");
 
         CardViewAdapter adapter = new CardViewAdapter(storyViewModel.getStories(), this);
-        rv = (RecyclerView)findViewById(R.id.story_recyclerview);
+        _recycleView = (RecyclerView)findViewById(R.id.story_recyclerview);
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        rv.setLayoutManager(llm);
-        rv.setAdapter(adapter);
+        LinearLayoutManager llm = new MyCustomLayoutManager(this);
+
+        _recycleView.setLayoutManager(llm);
+        _recycleView.setAdapter(adapter);
 
         _coordinateList = new ArrayList<>();
 
@@ -276,6 +273,17 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
                 _busRoute.startAnimation(_anim);
                 setNextStory();
             }
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("The bus has just arrived")
+                    .setMessage("Have a nice ride to your destination. Hope you will be back! :)")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            onBackPressed();
+                        }
+                    })
+                    .setIcon(android.R.drawable.stat_sys_download_done)
+                    .show();
         }
     }
 
@@ -285,6 +293,6 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     }
 
     private void setNextStory() {
-        rv.smoothScrollToPosition(_index);
+        _recycleView.smoothScrollToPosition(_index);
     }
 }
