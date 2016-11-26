@@ -63,28 +63,31 @@
                 android:text="DescriptionDescriptionDescriptionDescriptionDescriptionDescription"
                 android:textAlignment="center"
                 />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text = "LEAVE A REACTION"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:id = "@+id/feedback"
+                android:textSize="13dp"
+                android:textColor="@color/hsl_blue"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="font_family_light"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:id = "@+id/separator"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginRight="35dp"
                 android:layout_marginLeft="35dp"
                 android:background="@color/hsl_blue"
-                android:layout_below="@+id/description"
+                android:layout_above="@id/feedback"
                 />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text = "LEAVE FEEDBACK"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/separator"
-                android:textStyle="bold"
-                android:textSize="13dp"
-                android:textColor="@color/hsl_blue"
-                android:gravity="center"
-                android:fontFamily="font_family_light"/>
-
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
