@@ -34,7 +34,6 @@ public class StoryResponseFactory {
         this.stories.add(
                 new Story(R.drawable.donald_trump, "Donald Trump", "Donald John Trump is an American businessman and the President-elect of the United States. In June 2015, Trump announced his candidacy for president as a Republican and quickly emerged as the front-runner for his party's nomination.")
         );
-
     }
 
     public int getMinutes() {

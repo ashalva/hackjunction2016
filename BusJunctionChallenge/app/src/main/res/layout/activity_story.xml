@@ -22,21 +22,30 @@
         android:id="@+id/route_layout"
         android:orientation="vertical"
         android:layout_weight="70"
-        android:background="#9CCC65">
+        android:background="#212121">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id = "@+id/route_inner_layout"
-            >
+            android:id = "@+id/route_inner_layout" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id = "@+id/countdown"
+                    android:text = "00:00"
+                    android:textColor="#ffffff"
+                    android:textSize = "16dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="15dp"
+                    />
             <View
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:id = "@+id/starter_point"
                 android:background="@drawable/point_background"
                 android:layout_margin="15dp"/>
             <View
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:id = "@+id/end_point"
                 android:background="@drawable/point_background"
                 android:layout_margin="15dp"

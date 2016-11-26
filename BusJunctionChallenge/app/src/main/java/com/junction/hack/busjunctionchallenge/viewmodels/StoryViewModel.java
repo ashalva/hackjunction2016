@@ -43,7 +43,7 @@ public class StoryViewModel implements Serializable {
     }
 
     public int getDuration() {
-        return (this.storyResponse.getMinutes() * 60 * 1000 / this.getStorySize());
+        return (this.storyResponse.getMinutes() * 60 * 300 / this.getStorySize());
     }
 
 }
