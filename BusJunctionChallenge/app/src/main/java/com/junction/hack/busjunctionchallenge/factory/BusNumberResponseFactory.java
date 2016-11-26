@@ -19,9 +19,9 @@ public class BusNumberResponseFactory {
 
         this.busId = 12345;
 
-        this.busRoutes.add(new BusRoute("518", "Kuninkaanmäki", "21:21", "15 minutes"));
-        this.busRoutes.add(new BusRoute("50", "Suursuo", "21:21", "12 minutes"));
-        this.busRoutes.add(new BusRoute("59", "Pajamäki", "21:21", "12 inutes"));
+        this.busRoutes.add(new BusRoute("518", "Kuninkaanmäki", "13:15", "15 minutes"));
+        this.busRoutes.add(new BusRoute("50", "Suursuo", "13:25", "25 minutes"));
+        this.busRoutes.add(new BusRoute("59", "Pajamäki", "13:55", "55 minutes"));
 
     }
 
