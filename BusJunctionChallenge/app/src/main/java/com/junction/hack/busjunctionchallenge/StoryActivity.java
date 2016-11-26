@@ -1,33 +1,27 @@
 package com.junction.hack.busjunctionchallenge;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.felipecsl.gifimageview.library.GifImageView;
+import com.junction.hack.busjunctionchallenge.Helpers.CardViewAdapter;
 import com.junction.hack.busjunctionchallenge.Helpers.Coordinate;
 import com.junction.hack.busjunctionchallenge.Helpers.DrawView;
 import com.junction.hack.busjunctionchallenge.Helpers.Helpers;
-import com.junction.hack.busjunctionchallenge.models.Story;
 import com.junction.hack.busjunctionchallenge.viewmodels.StoryViewModel;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -38,7 +32,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private StoryActivity _activity;
     private View _startPoint;
     private View _endPoint;
-    private GifImageView _mainPoint;
+    private View _mainPoint;
 
     private TranslateAnimation _anim;
     private List<Coordinate> _coordinateList;
@@ -50,7 +44,8 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private boolean _viewWasGenerated;
     private int _index = 0;
 
-    double pointSize = 22.0;
+    double _pointSize = 22.0;
+    private RecyclerView rv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,19 +53,12 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
 
         storyViewModel = (StoryViewModel) getIntent().getSerializableExtra("StoryViewModel");
 
-        _image = (ImageView) findViewById(R.id.story_display_image);
-        _titleTextView = (TextView) findViewById(R.id.title_textview);
-        _descriptionTextView = (TextView) findViewById(R.id.description_textview);
+        CardViewAdapter adapter = new CardViewAdapter(storyViewModel.getStories());
+        rv = (RecyclerView)findViewById(R.id.story_recyclerview);
 
-        setNextStory(_image, _titleTextView, _descriptionTextView, storyViewModel);
-
-        Button nextStory = (Button) findViewById(R.id.next_story_button);
-        nextStory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setNextStory(_image, _titleTextView, _descriptionTextView, storyViewModel);
-            }
-        });
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+        rv.setAdapter(adapter);
 
         _coordinateList = new ArrayList<>();
 
@@ -128,7 +116,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         for (int i = 0; i < pointCount; i++) {
 
             View newPoint = new View(this);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(pointSize, this), Helpers.convertDpToPixel(pointSize, this));
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(_pointSize, this), Helpers.convertDpToPixel(_pointSize, this));
 
             if (i % 2 == 0)
                 startY += (i == 0) ? differenceY : differenceY * 2;
@@ -150,20 +138,20 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
 
     private void addLines(RelativeLayout view) {
         DrawView startLine = new DrawView(this,
-                (int)(_startPoint.getX() + pointSize / 2),
-                (int)(_startPoint.getY() + pointSize / 2),
-                (int)(_coordinateList.get(0).get_x() + pointSize / 2),
-                (int)(_coordinateList.get(0).get_y() + pointSize));
+                (int)(_startPoint.getX() + _pointSize / 2),
+                (int)(_startPoint.getY() + _pointSize / 2),
+                (int)(_coordinateList.get(0).get_x() + _pointSize / 2),
+                (int)(_coordinateList.get(0).get_y() + _pointSize));
         view.addView(startLine);
 
         int endX = 0;
         int endY = 0;
-        int startX = (int)(_coordinateList.get(0).get_x() + pointSize / 2);
-        int startY = (int)(_coordinateList.get(0).get_y() + pointSize);
+        int startX = (int)(_coordinateList.get(0).get_x() + _pointSize / 2);
+        int startY = (int)(_coordinateList.get(0).get_y() + _pointSize);
 
         for (int i = 0; i < _coordinateList.size() - 2 ; i++) {
-            endX = (int) (_coordinateList.get(i + 1).get_x() + pointSize);
-            endY = (int)(_coordinateList.get(i+1).get_y() + pointSize /2);
+            endX = (int) (_coordinateList.get(i + 1).get_x() + _pointSize);
+            endY = (int)(_coordinateList.get(i+1).get_y() + _pointSize /2);
 
             DrawView drawView = new DrawView(this,
                     startX,
@@ -177,10 +165,10 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         }
 
         DrawView endLine = new DrawView(this,
-                (int)(_coordinateList.get(_coordinateList.size() - 2).get_x() + pointSize / 2),
-                (int)(_coordinateList.get(_coordinateList.size() - 2).get_y() + pointSize),
-                (int)(_endPoint.getX() + pointSize / 2),
-                (int)(_endPoint.getY() + pointSize / 2));
+                (int)(_coordinateList.get(_coordinateList.size() - 2).get_x() + _pointSize / 2),
+                (int)(_coordinateList.get(_coordinateList.size() - 2).get_y() + _pointSize),
+                (int)(_endPoint.getX() + _pointSize / 2),
+                (int)(_endPoint.getY() + _pointSize / 2));
         view.addView(endLine);
 
     }
@@ -188,31 +176,17 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     @Override
     protected void onStart() {
         super.onStart();
-        _mainPoint = new GifImageView(this);
-        if (_mainPoint != null)
-            _mainPoint.startAnimation();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        _mainPoint.stopAnimation();
-    }
     private void startPointAnimation(RelativeLayout view) {
         _activity = this;
 
-        RelativeLayout.LayoutParams mainPointParams = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(pointSize, this), Helpers.convertDpToPixel(pointSize, this));
+        RelativeLayout.LayoutParams mainPointParams = new RelativeLayout.LayoutParams(Helpers.convertDpToPixel(_pointSize, this), Helpers.convertDpToPixel(_pointSize, this));
+        _mainPoint = new View(this);
         _mainPoint.setLayoutParams(mainPointParams);
-//        Drawable d = ContextCompat.getDrawable(_activity, R.drawable.giphy); // the drawable (Captain Obvious, to the rescue!!!)
-//        Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//        byte[] bitmapdata = stream.toByteArray();
-//        _mainPoint.setBytes(bitmapdata);
         _mainPoint.setBackgroundColor(Color.RED);
         _mainPoint.setX(_startPoint.getX());
         _mainPoint.setY(_startPoint.getY());
-        _mainPoint.startAnimation();
 
 
         view.addView(_mainPoint);
@@ -265,7 +239,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
                 _anim.setFillAfter(true);
                 _anim.setDuration(storyViewModel.getDuration());
                 _mainPoint.startAnimation(_anim);
-                setNextStory(_image, _titleTextView, _descriptionTextView, storyViewModel);
+                setNextStory();
             }
         }
     }
@@ -275,16 +249,7 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
 
     }
 
-    private void setNextStory(ImageView image, TextView titleTextView, TextView descriptionTextView, StoryViewModel storyViewModel) {
-        Story story = storyViewModel.nextStory();
-        if (story != null) {
-            titleTextView.setText(story.getTitle());
-            descriptionTextView.setText(story.getDescription());
-            image.setImageResource(story.getImage());
-        } else {
-            Toast.makeText(getApplicationContext(),
-                    "No more Stories" , Toast.LENGTH_LONG)
-                    .show();
-        }
+    private void setNextStory() {
+        rv.smoothScrollToPosition(_index);
     }
 }

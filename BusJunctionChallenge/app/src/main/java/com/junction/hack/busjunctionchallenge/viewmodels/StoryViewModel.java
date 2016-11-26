@@ -26,6 +26,9 @@ public class StoryViewModel implements Serializable {
         this.stories = this.storyResponse.getStoryList();
     }
 
+    public List<Story> getStories() {
+        return stories;
+    }
 
     public Story nextStory() {
         Story story = null;
