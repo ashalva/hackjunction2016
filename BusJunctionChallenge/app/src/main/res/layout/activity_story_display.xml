@@ -28,11 +28,11 @@
                 />
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:id="@+id/person_photo"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="70dp"
                 android:background="@mipmap/ic_launcher"
                 />
             <TextView
@@ -45,7 +45,7 @@
                 android:textColor="#000000"
                 android:text="HEADER"
                 android:fontFamily="sans-serif-thin"
-                android:textSize="30sp"
+                android:textSize="28sp"
                 />
 
             <TextView
@@ -56,8 +56,11 @@
                 android:maxLines="5"
                 android:singleLine="false"
                 android:textColor="#000000"
+                android:textSize = "12dp"
                 android:layout_below="@+id/person_name"
-                android:text="Description"
+                android:paddingLeft="35dp"
+                android:paddingRight="35dp"
+                android:text="DescriptionDescriptionDescriptionDescriptionDescriptionDescription"
                 android:textAlignment="center"
                 />
 

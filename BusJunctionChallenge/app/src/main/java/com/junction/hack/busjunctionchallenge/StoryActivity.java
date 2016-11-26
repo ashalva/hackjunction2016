@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
@@ -44,12 +45,14 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
     private boolean _viewWasGenerated;
     private int _index = 0;
 
-    double _pointSize = 17.0;
+    double _pointSize = 14.0;
     private RecyclerView rv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         storyViewModel = (StoryViewModel) getIntent().getSerializableExtra("StoryViewModel");
 
@@ -79,6 +82,16 @@ public class StoryActivity extends AppCompatActivity implements Animation.Animat
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     int secondCount = 0;
     int minuteCount = 0;
     private void startCountDown() {
